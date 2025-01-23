@@ -1,4 +1,4 @@
-# Projet Keycloak, Traefik, OAuth2 et Web PHP
+# Keycloak, Traefik, OAuth2 et Web PHP
 
 <p align="center">
     <img src="https://github.com/Rbtsv2/poc-traefik-keycloak-oauth2-web-php/blob/master/poc.png?raw=true" width="400" alt="Keycloak OAuth2 Traefik">
