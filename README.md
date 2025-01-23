@@ -1,5 +1,10 @@
 # Projet Keycloak, Traefik, OAuth2 et Web PHP
 
+<p align="center">
+    <img src="https://github.com/Rbtsv2/poc-traefik-keycloak-oauth2-web-php/blob/master/poc.png?raw=true" alt="Keycloak OAuth2 Traefik">
+</p>
+
+
 ## Description
 
 Ce projet est une preuve de concept (POC) permettant d'utiliser Traefik comme reverse proxy, Keycloak comme fournisseur d'authentification, et OAuth2 Proxy pour sécuriser l'accès à plusieurs services web PHP.
