@@ -1,0 +1,77 @@
+version: '3.9'
+
+services:
+
+  beta:
+    image: nginx:latest
+    container_name: beta
+    volumes:
+      - ./projects/beta:/usr/share/nginx/html:ro
+      - ./config/nginx/beta.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./logs/beta/nginx:/var/log/nginx  # Montage des logs Nginx
+    networks:
+      backend:
+        aliases:
+          - beta.local
+
+  portail:
+    image: nginx:latest
+    container_name: portail
+    volumes:
+      - ./projects/portail:/usr/share/nginx/html:ro
+      - ./config/nginx/portail.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./logs/portail/nginx:/var/log/nginx  # Montage des logs Nginx
+    networks:
+      backend:
+        aliases:
+          - portail.local
+
+  alpha:
+    image: nginx:latest
+    container_name: alpha
+    volumes:
+      - ./projects/alpha:/usr/share/nginx/html:ro
+      - ./config/nginx/alpha.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./logs/alpha/nginx:/var/log/nginx  # Montage des logs Nginx
+    networks:
+      backend:
+        aliases:
+          - alpha.local
+
+  php-alpha:
+    image: php:5.6-fpm
+    container_name: php-alpha
+    volumes:
+      - ./projects/alpha:/var/www/html:ro
+      - ./logs/alpha/php:/var/log/php  # Montage des logs PHP
+    networks:
+      backend:
+        aliases:
+          - php-alpha.local
+
+  php-beta:
+    image: php:7.4-fpm
+    container_name: php-beta
+    volumes:
+      - ./projects/beta:/var/www/html:ro
+      - ./logs/beta/php:/var/log/php  # Montage des logs PHP
+    networks:
+      backend:
+        aliases:
+          - php-beta.local
+
+  php-portail:
+    image: php:7.4-fpm
+    container_name: php-portail
+    volumes:
+      - ./projects/portail:/var/www/html:ro
+      - ./logs/portail/php:/var/log/php  # Montage des logs PHP
+    networks:
+      backend:
+        aliases:
+          - php-portail.local
+
+networks:
+  backend:
+    driver: bridge
+    name: backend

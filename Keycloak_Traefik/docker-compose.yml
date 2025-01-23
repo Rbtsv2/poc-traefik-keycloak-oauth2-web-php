@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    command:
+      # - "--api.insecure=true"
+      - "--providers.docker=true"
+      # - "--log.level=DEBUG"
+      # - "--providers.file.directory=/etc/traefik/dynamic"
+      # - "--entrypoints.web.address=:80"
+      # - "--log.filePath=/var/log/traefik.log"
+      # - "--accesslog.filePath=/var/log/access.log"
+    ports:
+      - "80:80"
+      - "8003:8003"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik.yml:/etc/traefik/traefik.yml:ro"
+      - "./traefik_dynamic.yml:/etc/traefik/dynamic/traefik_dynamic.yml:ro"
+      - "./log/traefik:/var/log"
+    networks:
+      backend:
+        aliases:
+          - traefik.local
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    environment:
+      - KC_HOSTNAME=keycloak.portail.tld
+      - KC_HOSTNAME_STRICT=false
+      - KC_HOSTNAME_STRICT_HTTPS=false
+      - KC_PROXY=edge
+      - KC_HTTP_ENABLED=true
+      - KC_SPI_LOGIN_PROTOCOL_OPENID_CONNECT_LEGACY_LOGOUT_REDIRECT_URI=true
+      - KEYCLOAK_FRONTEND_URL=http://keycloak.portail.tld
+      - KC_PROXY_ADDRESS_FORWARDING=true   
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
+      - TZ=Europe/Paris
+    command: start-dev --import-realm
+
+    ports:
+      - "8080:8080"
+    volumes:
+      # - ./config/keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
+      - ./log/keycloak:/opt/keycloak/log
+      - ./timezone:/etc/timezone:ro
+      - ./localtime:/etc/localtime:ro
+    networks:
+      backend:
+        aliases:
+          - keycloak.portail.tld
+
+networks:
+  backend:
+    external: true

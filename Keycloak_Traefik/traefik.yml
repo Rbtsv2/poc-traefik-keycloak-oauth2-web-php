@@ -1,0 +1,27 @@
+entryPoints:
+  web:
+    address: ":80"
+  traefik:
+    address: ":8080"
+
+
+providers:
+  file:
+    directory: "/etc/traefik/dynamic"
+    watch: true
+
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: true
+
+api:
+  dashboard: true
+  
+log:
+  level: DEBUG
+  filePath: "/var/log/traefik/traefik.log"
+
+accessLog:
+  filePath: "/var/log/traefik/access.log"
+  format: json
+  bufferingSize: 100 # Nombre maximum d'entrées en mémoire avant écriture

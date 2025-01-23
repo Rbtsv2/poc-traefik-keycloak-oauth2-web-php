@@ -1,0 +1,2 @@
+172.18.0.9 - - [22/Jan/2025:16:40:52 +0000] "GET /admin/beta/headers.php HTTP/1.1" 404 27 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0"
+172.18.0.9 - - [22/Jan/2025:16:40:57 +0000] "GET /admin/beta HTTP/1.1" 404 153 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0"

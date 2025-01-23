@@ -1,0 +1,70 @@
+services:
+  oauth2-proxy:
+    container_name: oauth2-proxy
+    image: quay.io/oauth2-proxy/oauth2-proxy:latest
+    ports:
+      - "4180:4180"
+    volumes:
+      - ./localtime:/etc/localtime:ro
+      - ./timezone:/etc/timezone:ro
+    environment:
+      # Configuration OAuth2 de base
+      - OAUTH2_PROXY_PROVIDER=oidc
+      - OAUTH2_PROXY_CLIENT_ID=traefik
+      - OAUTH2_PROXY_CLIENT_SECRET=XncDnKKwDud6Xyutp6OToHQnEYs1h3ky
+      - OAUTH2_PROXY_COOKIE_SECRET=OQINaROshtE9TcZkNAm-5Zs2Pv3xaWytBmc5W7sPX7w=
+      - OAUTH2_PROXY_OIDC_ISSUER_URL=http://keycloak.portail.tld:8080/realms/portail-sib
+
+      # Configuration des accès
+      - OAUTH2_PROXY_EMAIL_DOMAINS=*
+      - OAUTH2_PROXY_WHITELIST_DOMAINS=.portail.tld,portail.tld
+      
+      # Configuration des cookies
+      - OAUTH2_PROXY_COOKIE_NAME=_oauth2_proxy
+      - OAUTH2_PROXY_COOKIE_SECURE=false
+      - OAUTH2_PROXY_COOKIE_SAMESITE=lax
+      - OAUTH2_PROXY_COOKIE_REFRESH=1h
+      - OAUTH2_PROXY_COOKIE_EXPIRE=4h
+      - OAUTH2_PROXY_COOKIE_DOMAINS=.portail.tld,portail.tld
+      - OAUTH2_PROXY_COOKIE_PATH=/
+      
+      # Configuration du proxy
+      - OAUTH2_PROXY_HTTP_ADDRESS=0.0.0.0:4180
+      - OAUTH2_PROXY_REDIRECT_URL=http://auth.portail.tld/oauth2/callback
+      - OAUTH2_PROXY_UPSTREAMS=http://beta.local,http://portail.local/admin/beta
+      
+      # Configuration de l'authentification
+      - OAUTH2_PROXY_SKIP_PROVIDER_BUTTON=true
+
+      - OAUTH2_PROXY_SET_AUTHORIZATION_HEADER=true
+      - OAUTH2_PROXY_SET_XAUTHREQUEST=true
+      - OAUTH2_PROXY_PASS_ACCESS_TOKEN=true
+      - OAUTH2_PROXY_PASS_USER_HEADERS=true
+      
+      # Configuration du reverse proxy
+      - OAUTH2_PROXY_REVERSE_PROXY=true
+      - OAUTH2_PROXY_REAL_CLIENT_IP_HEADER=X-Real-IP
+      
+      # Nouvelles options pour gérer le CSRF
+      - OAUTH2_PROXY_COOKIE_CSRF_PER_REQUEST=false
+      - OAUTH2_PROXY_COOKIE_CSRF_EXPIRE=15m
+      - OAUTH2_PROXY_CSRF_PREVENT_REUSE=false
+      - OAUTH2_PROXY_SKIP_AUTH_PREFLIGHT=true
+      
+      # Logging
+      - OAUTH2_PROXY_STANDARD_LOGGING=true
+      - OAUTH2_PROXY_AUTH_LOGGING=true
+      - OAUTH2_PROXY_REQUEST_LOGGING=true
+
+      - OAUTH2_PROXY_CODE_CHALLENGE_METHOD=S256
+      - TZ=Europe/Paris
+      # - OAUTH2_PROXY_SKIP_CSRF_CHECK=true
+
+    networks:
+      backend:
+        aliases:
+          - oauth2-proxy.local
+
+networks:
+  backend:
+    external: true

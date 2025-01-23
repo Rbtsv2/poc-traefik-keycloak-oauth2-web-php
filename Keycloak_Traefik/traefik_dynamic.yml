@@ -1,0 +1,108 @@
+http:
+  routers:
+    traefik_dashboard:
+      entryPoints:
+        - web
+      rule: "Host(`traefik.tld`) && PathPrefix(`/dashboard`)"
+      service: api@internal
+
+    traefik_api:
+      entryPoints:
+        - web
+      rule: "Host(`traefik.tld`) && PathPrefix(`/api`)"
+      service: api@internal
+
+    beta_router:
+      entryPoints:
+        - web
+      rule: "Host(`portail.tld`) && PathPrefix(`/admin/beta`)"
+      middlewares:
+        - oauth2-proxy
+        # - cookie-config
+      service: beta_service
+
+    admin_router:
+      entryPoints:
+        - web
+      rule: "Host(`portail.tld`) && PathPrefix(`/admin`)"
+      middlewares:
+        - oauth2-proxy
+      service: portail_service_secure
+
+    keycloak_router:
+      rule: "Host(`keycloak.portail.tld`)"
+      entryPoints:
+        - web
+      service: keycloak_service
+
+
+    public_portail_router:
+      entryPoints:
+        - web
+      rule: "Host(`portail.tld`)"
+      service: portail_service
+
+    oauth2_proxy_router:
+      entryPoints:
+        - web
+      rule: "Host(`auth.portail.tld`)"
+      service: oauth2_proxy_service
+
+  middlewares:
+    oauth2-proxy:
+      forwardAuth:
+        address: "http://oauth2-proxy:4180"
+        trustForwardHeader: true
+        authResponseHeaders:
+          - X-Auth-Request-Access-Token
+          - Authorization
+          - X-Auth-Request-User
+          - X-Auth-Request-Email
+          - Set-Cookie
+          - X-Auth-User
+          - X-Secret
+          - X-Forwarded-User 
+          - X-WebAuth-User
+        authRequestHeaders:
+          - Cookie
+          - X-Forwarded-Uri
+          - X-Forwarded-Host
+          - X-Forwarded-Proto
+          - X-Forwarded-For
+          - X-Real-IP
+          - Host
+
+    cookie-config:
+      headers:
+        customResponseHeaders:
+          Set-Cookie:
+            - "KEYCLOAK_IDENTITY; SameSite=Lax; Secure=false; HttpOnly"
+            - "KEYCLOAK_SESSION; SameSite=Lax; Secure=false; HttpOnly"
+            - "AUTH_SESSION_ID; SameSite=Lax; Secure=false; HttpOnly"
+            - "AUTH_SESSION_ID; SameSite=Lax; Secure=false; HttpOnly"
+
+  services:
+    beta_service:
+      loadBalancer:
+        servers:
+          - url: "http://beta.local:80"
+
+    portail_service:
+      loadBalancer:
+        servers:
+          - url: "http://portail.local:80"
+
+    portail_service_secure:
+      loadBalancer:
+        servers:
+          - url: "http://portail.local:80/admin"
+
+    oauth2_proxy_service:
+      loadBalancer:
+        servers:
+          - url: "http://oauth2-proxy.local:4180"
+
+    keycloak_service:
+      loadBalancer:
+        servers:
+          - url: "http://keycloak.portail.tld:8080"
