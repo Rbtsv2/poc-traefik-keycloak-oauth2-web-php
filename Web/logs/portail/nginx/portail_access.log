@@ -442,3 +442,5 @@
 172.18.0.8 - - [23/Jan/2025:14:13:40 +0000] "GET /admin/index.php HTTP/1.1" 200 1563 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0"
 172.18.0.8 - - [23/Jan/2025:14:14:04 +0000] "GET /admin/index.php HTTP/1.1" 200 1563 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0"
 172.18.0.8 - - [23/Jan/2025:15:31:47 +0000] "GET / HTTP/1.1" 200 1197 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0"
+172.18.0.8 - - [23/Jan/2025:20:05:59 +0000] "GET / HTTP/1.1" 200 1197 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0"
+172.18.0.8 - - [23/Jan/2025:20:05:59 +0000] "GET /favicon.ico HTTP/1.1" 499 0 "http://portail.tld/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0"

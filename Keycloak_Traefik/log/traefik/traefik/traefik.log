@@ -2706,3 +2706,16 @@ More details on: https://doc.traefik.io/traefik/contributing/data-collection/
 2025-01-23T14:14:07Z DBG github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/wrr/wrr.go:196 > Service selected by WRR: 16ad47660c8e35fd
 2025-01-23T15:31:47Z DBG github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/wrr/wrr.go:196 > Service selected by WRR: c1c9f24df535b447
 2025-01-23T15:35:55Z DBG github.com/traefik/traefik/v3/pkg/middlewares/auth/forward.go:187 > Remote error http://oauth2-proxy:4180. StatusCode: 302 middlewareName=oauth2-proxy@file middlewareType=ForwardAuth
+2025-01-23T20:05:59Z DBG github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/wrr/wrr.go:196 > Service selected by WRR: c1c9f24df535b447
+2025-01-23T20:05:59Z DBG github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/wrr/wrr.go:196 > Service selected by WRR: c1c9f24df535b447
+2025-01-23T20:05:59Z DBG github.com/traefik/traefik/v3/pkg/proxy/httputil/proxy.go:113 > 499 Client Closed Request error="context canceled"
+2025-01-23T20:06:01Z DBG github.com/traefik/traefik/v3/pkg/middlewares/auth/forward.go:187 > Remote error http://oauth2-proxy:4180. StatusCode: 302 middlewareName=oauth2-proxy@file middlewareType=ForwardAuth
+2025-01-23T20:07:19Z DBG github.com/traefik/traefik/v3/pkg/middlewares/auth/forward.go:187 > Remote error http://oauth2-proxy:4180. StatusCode: 302 middlewareName=oauth2-proxy@file middlewareType=ForwardAuth
+2025-01-23T20:07:23Z DBG github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/wrr/wrr.go:196 > Service selected by WRR: 8c4bb80180d34435
+2025-01-23T20:07:23Z DBG github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/wrr/wrr.go:196 > Service selected by WRR: 487c2e700fd2ed96
+2025-01-23T20:07:24Z DBG github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/wrr/wrr.go:196 > Service selected by WRR: 8c4bb80180d34435
+2025-01-23T20:07:24Z DBG github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/wrr/wrr.go:196 > Service selected by WRR: 8c4bb80180d34435
+2025-01-23T20:07:24Z DBG github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/wrr/wrr.go:196 > Service selected by WRR: 8c4bb80180d34435
+2025-01-23T20:07:24Z DBG github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/wrr/wrr.go:196 > Service selected by WRR: 8c4bb80180d34435
+2025-01-23T20:07:38Z DBG github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/wrr/wrr.go:196 > Service selected by WRR: 487c2e700fd2ed96
+2025-01-24T12:22:31Z WRN github.com/traefik/traefik/v3/pkg/version/version.go:103 > A new release of Traefik has been found: 3.3.2. Please consider updating.
