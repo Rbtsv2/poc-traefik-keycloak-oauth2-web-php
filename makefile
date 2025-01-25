@@ -1,0 +1,1 @@
+@echo "Docker version:"; docker --version
